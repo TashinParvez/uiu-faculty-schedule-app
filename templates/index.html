@@ -12,6 +12,27 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
 
         .container {
@@ -163,6 +184,39 @@
             .table td {
                 padding: 8px;
             }
+
+            /* for phones */
+            footer {
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
+
+        footer {
+            background: #222;
+            color: #ddd;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            border-top: 2px solid #444;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer small {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        @media (max-width: 576px) {
+
+            /* for phones */
+            footer {
+                font-size: 12px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -170,18 +224,21 @@
 <body>
 
     <!--================================ Main Seg ================================-->
-    <div class="container">
-        <h1>Faculty Schedule Search</h1>
-        <form id="searchForm">
-            <div class="input-group mb-3">
-                <input type="text" id="searchInput" class="form-control" placeholder="Enter faculty name or code"
-                    autocomplete="off" required>
-                <button type="submit" class="btn btn-primary">Search</button>
-                <div id="suggestions" class="dropdown-menu" style="display: none;"></div>
-            </div>
-        </form>
-        <div id="result"></div>
-    </div>
+
+    <main>
+        <div class="container">
+            <h1>Faculty Schedule Search</h1>
+            <form id="searchForm">
+                <div class="input-group mb-3">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Enter faculty name or code"
+                        autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <div id="suggestions" class="dropdown-menu" style="display: none;"></div>
+                </div>
+            </form>
+            <div id="result"></div>
+        </div>
+    </main>
 
 
     <!--================================ footer ================================-->
@@ -198,7 +255,8 @@
             </a>
         </p>
 
-        <p style="font-size:12px; color:#aaa;">Note: Information is based on uploaded data. Please verify with
+        <p style="font-size:12px; color:#aaa;">Note: Information is based on uploaded data (Summer 2025). Please verify
+            with
             faculty/department if necessary.</p>
     </footer>
 
@@ -328,7 +386,12 @@
 
             resultDiv.innerHTML = `
                 <div class="faculty-info">
-                    <h5 class="mb-3">${faculty.name} (${code})</h5>
+                    
+
+                    <h3 class="mb-3" style="color:#1a3c6d; font-weight:bold;">
+  ${faculty.name} (${code})
+</h3>
+
                     <p class="mb-2"><strong>Designation:</strong> ${faculty.designation}</p>
                     <p class="mb-2"><strong>Room:</strong> ${faculty.room}</p>
                     <p class="mb-0"><strong>Email:</strong> ${faculty.email}</p>
