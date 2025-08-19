@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Faculty Schedule Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .dropdown-menu {
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .dropdown-item:hover {
+            background-color: #e9ecef;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="mb-4">Faculty Schedule Search</h1>
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <form action="/search" method="get" id="searchForm">
+            <div class="input-group mb-3 position-relative">
+                <input type="text" id="searchInput" name="query" class="form-control"
+                    placeholder="Enter faculty name or code" autocomplete="off" required>
+                <button type="submit" class="btn btn-primary">Search</button>
+                <div id="suggestions" class="dropdown-menu w-100" style="display: none;"></div>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsDropdown = document.getElementById('suggestions');
+        let debounceTimeout;
+
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => {
+                const query = searchInput.value.trim();
+                if (query.length < 1) {
+                    suggestionsDropdown.style.display = 'none';
+                    return;
+                }
+
+                fetch(`/suggest?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestionsDropdown.innerHTML = '';
+                        if (data.length === 0) {
+                            suggestionsDropdown.style.display = 'none';
+                            return;
+                        }
+
+                        data.forEach(item => {
+                            const div = document.createElement('div');
+                            div.className = 'dropdown-item';
+                            div.textContent = `${item.name} (${item.code})`;
+                            div.addEventListener('click', () => {
+                                searchInput.value = item.name; // Or item.code if you prefer code on select
+                                suggestionsDropdown.style.display = 'none';
+                                document.getElementById('searchForm').submit();
+                            });
+                            suggestionsDropdown.appendChild(div);
+                        });
+
+                        suggestionsDropdown.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error fetching suggestions:', error);
+                        suggestionsDropdown.style.display = 'none';
+                    });
+            }, 300); // Debounce delay
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !suggestionsDropdown.contains(e.target)) {
+                suggestionsDropdown.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
