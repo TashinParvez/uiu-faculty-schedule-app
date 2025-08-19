@@ -1,4 +1,4 @@
-# 📘 UIU Faculty Schedule
+# 📘 UIU Faculty Schedule App
 
 A modern, mobile-friendly web application to **search and view faculty schedules** at **United International University (UIU)**.
 Students can easily find `faculty information`, see their **undergrad & grad routines**, and quickly check **today’s availability/free slots** to plan visits.
@@ -115,18 +115,6 @@ faculty-schedule-app/
   }
 }
 ```
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! 🎉
-
-- Report bugs by opening an **issue**
-- Suggest new features
-- Submit pull requests with improvements
-
-Ah, I see! You want a **standard “Contributing” section** that you can **reuse and update in every README or similar file**. Here's a polished version you can copy-paste and adjust as needed:
 
 ---
 
