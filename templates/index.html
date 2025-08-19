@@ -4,92 +4,200 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Faculty Schedule Search</title>
+    <title>UIU Faculty Schedule Search</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
+        body {
+            background: #f5f7fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #343a40;
+        }
+
         .dropdown-menu {
             width: 100%;
-            max-height: 200px;
+            max-height: 220px;
             overflow-y: auto;
+            border-radius: 0 0 10px 10px;
+            margin-top: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .dropdown-item:hover {
             background-color: #e9ecef;
             cursor: pointer;
         }
+
+        .input-group input:focus {
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        .suggestion-item {
+            padding: 8px 12px;
+            transition: background 0.2s;
+        }
+
+        .suggestion-item.active,
+        .suggestion-item:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f3f5;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #007bff;
+        }
     </style>
 </head>
 
-<body class="bg-light">
-    <div class="container py-5">
-        <h1 class="mb-4">Faculty Schedule Search</h1>
-        {% if error %}
-        <div class="alert alert-danger">{{ error }}</div>
-        {% endif %}
-        <form action="/search" method="get" id="searchForm">
-            <div class="input-group mb-3 position-relative">
-                <input type="text" id="searchInput" name="query" class="form-control"
-                    placeholder="Enter faculty name or code" autocomplete="off" required>
+<body>
+    <div class="container">
+        <h1>Faculty Schedule Search</h1>
+        <form id="searchForm">
+            <div class="input-group position-relative mb-3">
+                <input type="text" id="searchInput" class="form-control" placeholder="Enter faculty name or code"
+                    autocomplete="off" required>
                 <button type="submit" class="btn btn-primary">Search</button>
-                <div id="suggestions" class="dropdown-menu w-100" style="display: none;"></div>
+                <div id="suggestions" class="dropdown-menu" style="display: none;"></div>
             </div>
         </form>
+        <div id="result"></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+
     <script>
         const searchInput = document.getElementById('searchInput');
         const suggestionsDropdown = document.getElementById('suggestions');
-        let debounceTimeout;
+        const resultDiv = document.getElementById('result');
+        let facultyData = {};
+        let activeIndex = -1;
+
+        // Load local faculty JSON
+        fetch('../faculty_data.json') // adjust path if needed
+            .then(res => res.json())
+            .then(data => facultyData = data)
+            .catch(err => console.error('Error loading JSON:', err));
+
+        function filterSuggestions(query) {
+            query = query.toLowerCase();
+            const arr = Object.values(facultyData);
+            return arr
+                .filter(f => f.name.toLowerCase().includes(query) || f.code.toLowerCase().includes(query))
+                .slice(0, 5);
+        }
+
+        function showSuggestions(suggestions) {
+            suggestionsDropdown.innerHTML = '';
+            if (suggestions.length === 0) {
+                suggestionsDropdown.style.display = 'none';
+                return;
+            }
+
+            suggestions.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'dropdown-item suggestion-item';
+                div.innerHTML = `<span class="highlight">${item.name}</span> (${item.code})`;
+                div.addEventListener('click', () => selectFaculty(item));
+                suggestionsDropdown.appendChild(div);
+            });
+            suggestionsDropdown.style.display = 'block';
+        }
+
+        function selectFaculty(faculty) {
+            searchInput.value = faculty.name;
+            suggestionsDropdown.style.display = 'none';
+            showResult(faculty);
+        }
+
+        function showResult(faculty) {
+            let undergradSchedule = '';
+            if (faculty.undergrad && faculty.undergrad.schedule) {
+                const days = Object.keys(faculty.undergrad.schedule);
+                undergradSchedule += '<table class="table table-bordered"><thead><tr><th>Time</th>';
+                days.forEach(d => undergradSchedule += `<th>${d}</th>`);
+                undergradSchedule += '</tr></thead><tbody>';
+
+                faculty.undergrad.times.forEach((time, i) => {
+                    undergradSchedule += `<tr><td>${time}</td>`;
+                    days.forEach(d => {
+                        undergradSchedule += `<td>${faculty.undergrad.schedule[d][i] || ''}</td>`;
+                    });
+                    undergradSchedule += '</tr>';
+                });
+
+                undergradSchedule += '</tbody></table>';
+            }
+
+            resultDiv.innerHTML = `
+                <h5>${faculty.name} (${faculty.code})</h5>
+                <p><strong>Designation:</strong> ${faculty.designation}</p>
+                <p><strong>Room:</strong> ${faculty.room}</p>
+                <p><strong>Email:</strong> ${faculty.email}</p>
+                <h6>Undergrad Schedule:</h6>
+                ${undergradSchedule}
+            `;
+        }
 
         searchInput.addEventListener('input', () => {
-            clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(() => {
-                const query = searchInput.value.trim();
-                if (query.length < 1) {
-                    suggestionsDropdown.style.display = 'none';
-                    return;
-                }
-
-                fetch(`/suggest?query=${encodeURIComponent(query)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        suggestionsDropdown.innerHTML = '';
-                        if (data.length === 0) {
-                            suggestionsDropdown.style.display = 'none';
-                            return;
-                        }
-
-                        data.forEach(item => {
-                            const div = document.createElement('div');
-                            div.className = 'dropdown-item';
-                            div.textContent = `${item.name} (${item.code})`;
-                            div.addEventListener('click', () => {
-                                searchInput.value = item.name; // Or item.code if you prefer code on select
-                                suggestionsDropdown.style.display = 'none';
-                                document.getElementById('searchForm').submit();
-                            });
-                            suggestionsDropdown.appendChild(div);
-                        });
-
-                        suggestionsDropdown.style.display = 'block';
-                    })
-                    .catch(error => {
-                        console.error('Error fetching suggestions:', error);
-                        suggestionsDropdown.style.display = 'none';
-                    });
-            }, 300); // Debounce delay
+            activeIndex = -1;
+            const query = searchInput.value.trim();
+            if (!query) return suggestionsDropdown.style.display = 'none';
+            showSuggestions(filterSuggestions(query));
         });
 
-        // Hide suggestions when clicking outside
+        searchInput.addEventListener('keydown', (e) => {
+            const items = suggestionsDropdown.querySelectorAll('.suggestion-item');
+            if (e.key === 'ArrowDown') { activeIndex = (activeIndex + 1) % items.length; updateActive(items); e.preventDefault(); }
+            else if (e.key === 'ArrowUp') { activeIndex = (activeIndex - 1 + items.length) % items.length; updateActive(items); e.preventDefault(); }
+            else if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                const bestMatch = Object.values(facultyData).find(f => f.name.toLowerCase().startsWith(query.toLowerCase())) || filterSuggestions(query)[0];
+                if (bestMatch) selectFaculty(bestMatch);
+            }
+        });
+
+        function updateActive(items) {
+            items.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
+        }
+
         document.addEventListener('click', (e) => {
             if (!searchInput.contains(e.target) && !suggestionsDropdown.contains(e.target)) {
                 suggestionsDropdown.style.display = 'none';
             }
         });
+
+        document.getElementById('searchForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (!query) return;
+            const bestMatch = Object.values(facultyData).find(f => f.name.toLowerCase().startsWith(query.toLowerCase())) || filterSuggestions(query)[0];
+            if (bestMatch) selectFaculty(bestMatch);
+        });
     </script>
+
 </body>
 
 </html>
