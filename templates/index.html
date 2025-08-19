@@ -227,7 +227,7 @@
 
     <main>
         <div class="container">
-            <h1>Faculty Schedule Search</h1>
+            <h1>UIU Faculty Schedule Search</h1>
             <form id="searchForm">
                 <div class="input-group mb-3">
                     <input type="text" id="searchInput" class="form-control" placeholder="Enter faculty name or code"
@@ -245,7 +245,7 @@
 
     <footer
         style="margin-top:30px; padding:15px; background:#222; color:#ddd; text-align:center; font-size:14px; border-radius:5px 5px 0 0;">
-        <p>UIU Faculty Schedule App — Built for UIU Students</p>
+        <p>UIU Faculty Schedule App - Built for UIU Students</p>
         <p>Made with ❤️ by
             <a href="https://github.com/TashinParvez" target="_blank" style="color:#2c80e1; text-decoration:none;">
                 <i class="bi bi-github"></i>
@@ -260,6 +260,7 @@
             faculty/department if necessary.</p>
     </footer>
 
+    <!--================================ Script ================================-->
     <script>
         const searchInput = document.getElementById('searchInput');
         const suggestionsDropdown = document.getElementById('suggestions');
@@ -349,7 +350,7 @@
         }
 
         function buildTodaySchedule(faculty) {
-            let todayHtml = '<div class="today-section"><h5>Today\'s Schedule (' + today + ')</h5>';
+            let todayHtml = '<div class="today-section"><h4 style="color:#1a3c6d">Today\'s Schedule (' + today + ')</h4>';
 
             if (faculty.undergrad && faculty.undergrad.schedule[today]) {
                 todayHtml += '<h6>Undergraduate</h6><ul class="list-group mb-3">';
@@ -386,12 +387,8 @@
 
             resultDiv.innerHTML = `
                 <div class="faculty-info">
-                    
-
-                    <h3 class="mb-3" style="color:#1a3c6d; font-weight:bold;">
-  ${faculty.name} (${code})
-</h3>
-
+            
+                    <h3 class="mb-3" style="color:#1a3c6d; font-weight:bold;">${faculty.name} (${code})</h3>
                     <p class="mb-2"><strong>Designation:</strong> ${faculty.designation}</p>
                     <p class="mb-2"><strong>Room:</strong> ${faculty.room}</p>
                     <p class="mb-0"><strong>Email:</strong> ${faculty.email}</p>
