@@ -547,7 +547,7 @@
 
         function updateActive(items) {
             items.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
-        }
+        } 
 
         document.addEventListener('click', (e) => {
             if (!searchInput.contains(e.target) && !suggestionsDropdown.contains(e.target)) {
