@@ -269,8 +269,22 @@
         const suggestionsDropdown = document.getElementById('suggestions');
         const resultDiv = document.getElementById('result');
         let facultyData = {};
+        let facultyList = [];
         let activeIndex = -1;
+        let currentSuggestions = [];
         const today = new Date().toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
+
+        // Utility: escape regex
+        const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        // Utility: basic debounce for input
+        function debounce(fn, delay = 150) {
+            let t;
+            return (...args) => {
+                clearTimeout(t);
+                t = setTimeout(() => fn(...args), delay);
+            };
+        }
 
         // Load faculty_data.json
         fetch('./faculty_data.json')
@@ -278,18 +292,94 @@
                 if (!res.ok) throw new Error('Failed to load faculty data');
                 return res.json();
             })
-            .then(data => facultyData = data)
+            .then(data => {
+                facultyData = data || {};
+                facultyList = Object.entries(facultyData).map(([code, f]) => ({
+                    code,
+                    name: f.name || '',
+                    ref: f
+                }));
+            })
             .catch(err => {
                 console.error('Error loading JSON:', err);
                 resultDiv.innerHTML = '<p class="text-danger">Error loading faculty data. Please try again later.</p>';
             });
 
+        // Relevance scoring: smaller is better
+        function computeRelevance(q, item) {
+            const ql = q.toLowerCase();
+            const name = (item.name || '').toLowerCase();
+            const code = (item.code || '').toLowerCase();
+
+            if (!ql) return { cat: 99, a: 999, b: 999 }; // no query
+
+            // Tokenize name by non-letters (keeps A–Z)
+            const tokens = name.split(/[^a-z]+/).filter(Boolean);
+
+            // 0) Code starts with query
+            if (code.startsWith(ql)) return { cat: 0, a: 0, b: 0 };
+
+            // 1) Name starts with query (stronger than other token starts)
+            if (name.startsWith(ql)) return { cat: 1, a: 0, b: 0 };
+
+            // 2) Any token starts with query (word-boundary prefix)
+            const tokenStartIdx = tokens.findIndex(t => t.startsWith(ql));
+            if (tokenStartIdx !== -1) return { cat: 2, a: tokenStartIdx, b: 0 };
+
+            // 3) Code contains query (substring)
+            const codePos = code.indexOf(ql);
+            if (codePos !== -1) return { cat: 3, a: codePos, b: 0 };
+
+            // 4) Any token contains query (substring inside a word)
+            let bestTokenPos = Infinity, bestTokenIdx = Infinity;
+            tokens.forEach((t, idx) => {
+                const p = t.indexOf(ql);
+                if (p !== -1 && (p < bestTokenPos || (p === bestTokenPos && idx < bestTokenIdx))) {
+                    bestTokenPos = p;
+                    bestTokenIdx = idx;
+                }
+            });
+            if (bestTokenPos !== Infinity) return { cat: 4, a: bestTokenPos, b: bestTokenIdx };
+
+            // 5) Name contains query (fallback)
+            const namePos = name.indexOf(ql);
+            if (namePos !== -1) return { cat: 5, a: namePos, b: 0 };
+
+            // Not matched (shouldn’t be used if we filter first)
+            return { cat: 99, a: 999, b: 999 };
+        }
+
         function filterSuggestions(query) {
-            query = query.toLowerCase();
-            return Object.entries(facultyData)
-                .filter(([code, f]) => f.name.toLowerCase().includes(query) || code.toLowerCase().includes(query))
-                .map(([code, f]) => ({ name: f.name, code }))
-                .slice(0, 5);
+            const q = query.toLowerCase().trim();
+            if (!q) return [];
+
+            // Filter, score, sort
+            const scored = facultyList
+                .filter(item => item.name.toLowerCase().includes(q) || item.code.toLowerCase().includes(q))
+                .map(item => ({
+                    ...item,
+                    score: computeRelevance(q, item)
+                }))
+                .sort((x, y) => {
+                    // Primary: category
+                    if (x.score.cat !== y.score.cat) return x.score.cat - y.score.cat;
+                    // Secondary: position a
+                    if (x.score.a !== y.score.a) return x.score.a - y.score.a;
+                    // Tertiary: position b
+                    if (x.score.b !== y.score.b) return x.score.b - y.score.b;
+                    // Quaternary: shorter code first (users often type codes)
+                    if (x.code.length !== y.code.length) return x.code.length - y.code.length;
+                    // Finally: alphabetical by name
+                    return x.name.localeCompare(y.name);
+                });
+
+            return scored.slice(0, 8).map(({ name, code }) => ({ name, code }));
+        }
+
+        function highlight(text, query) {
+            if (!query) return text;
+            const re = new RegExp(`(${escapeRegExp(query)})`, 'ig');
+            return text.replace(re, '<span class="highlight">$1</span>');
         }
 
         function showSuggestions(suggestions) {
@@ -302,7 +392,10 @@
             suggestions.forEach((item, index) => {
                 const div = document.createElement('div');
                 div.className = 'dropdown-item suggestion-item';
-                div.innerHTML = `<span class="highlight">${item.name}</span> (${item.code})`;
+                const q = searchInput.value.trim();
+                const nameHtml = highlight(item.name, q);
+                const codeHtml = highlight(item.code, q);
+                div.innerHTML = `${nameHtml} (${codeHtml})`;
                 div.addEventListener('click', () => selectFaculty(item.code));
                 suggestionsDropdown.appendChild(div);
             });
@@ -325,7 +418,7 @@
         }
 
         function buildTable(schedule, times, isUndergrad = true) {
-            if (!schedule || Object.keys(schedule).length === 0) {
+            if (!schedule || Object.keys(schedule).length === 0 || !Array.isArray(times)) {
                 return `<p class="text-muted">No ${isUndergrad ? 'undergraduate' : 'graduate'} schedule available.</p>`;
             }
 
@@ -339,9 +432,11 @@
             table += '</tr></thead><tbody>';
 
             days.forEach(day => {
-                const highlight = day === today ? 'class="table-warning"' : '';
-                table += `<tr ${highlight}><td>${day}</td>`;
-                schedule[day].forEach(value => {
+                const highlightRow = day === today ? 'class="table-warning"' : '';
+                table += `<tr ${highlightRow}><td>${day}</td>`;
+                const row = schedule[day] || [];
+                times.forEach((_, i) => {
+                    const value = row[i] || '';
                     const cellClass = getCellClass(value);
                     table += `<td class="${cellClass}">${value || 'Free'}</td>`;
                 });
@@ -355,9 +450,9 @@
         function buildTodaySchedule(faculty) {
             let todayHtml = '<div class="today-section"><h4 style="color:#1a3c6d">Today\'s Schedule (' + today + ')</h4>';
 
-            if (faculty.undergrad && faculty.undergrad.schedule[today]) {
+            if (faculty.undergrad && faculty.undergrad.schedule && faculty.undergrad.schedule[today]) {
                 todayHtml += '<h6>Undergraduate</h6><ul class="list-group mb-3">';
-                faculty.undergrad.times.forEach((time, i) => {
+                (faculty.undergrad.times || []).forEach((time, i) => {
                     const activity = faculty.undergrad.schedule[today][i] || 'Free';
                     const cellClass = getCellClass(activity);
                     todayHtml += `<li class="list-group-item ${cellClass}">${time}: ${activity}</li>`;
@@ -367,9 +462,9 @@
                 todayHtml += '<p class="text-muted">No undergraduate schedule for today.</p>';
             }
 
-            if (faculty.grad && faculty.grad.schedule[today]) {
+            if (faculty.grad && faculty.grad.schedule && faculty.grad.schedule[today]) {
                 todayHtml += '<h6>Graduate</h6><ul class="list-group mb-3">';
-                faculty.grad.times.forEach((time, i) => {
+                (faculty.grad.times || []).forEach((time, i) => {
                     const activity = faculty.grad.schedule[today][i] || 'Free';
                     const cellClass = getCellClass(activity);
                     todayHtml += `<li class="list-group-item ${cellClass}">${time}: ${activity}</li>`;
@@ -384,17 +479,16 @@
         }
 
         function showResult(faculty, code) {
-            const undergradTable = buildTable(faculty.undergrad.schedule, faculty.undergrad.times);
-            const gradTable = buildTable(faculty.grad.schedule, faculty.grad.times, false);
+            const undergradTable = buildTable(faculty.undergrad?.schedule, faculty.undergrad?.times, true);
+            const gradTable = buildTable(faculty.grad?.schedule, faculty.grad?.times, false);
             const todaySchedule = buildTodaySchedule(faculty);
 
             resultDiv.innerHTML = `
                 <div class="faculty-info">
-            
                     <h3 class="mb-3" style="color:#1a3c6d; font-weight:bold;">${faculty.name} (${code})</h3>
-                    <p class="mb-2"><strong>Designation:</strong> ${faculty.designation}</p>
-                    <p class="mb-2"><strong>Room:</strong> ${faculty.room}</p>
-                    <p class="mb-0"><strong>Email:</strong> ${faculty.email}</p>
+                    <p class="mb-2"><strong>Designation:</strong> ${faculty.designation || ''}</p>
+                    <p class="mb-2"><strong>Room:</strong> ${faculty.room || ''}</p>
+                    <p class="mb-0"><strong>Email:</strong> ${faculty.email || ''}</p>
                 </div>
                 ${todaySchedule}
                 <h6 class="mb-3">Full Undergraduate Schedule</h6>
@@ -404,36 +498,49 @@
             `;
         }
 
-        searchInput.addEventListener('input', () => {
+        const handleInput = debounce(() => {
             activeIndex = -1;
             const query = searchInput.value.trim();
             if (!query) {
                 suggestionsDropdown.style.display = 'none';
+                currentSuggestions = [];
                 return;
             }
-            showSuggestions(filterSuggestions(query));
-        });
+            currentSuggestions = filterSuggestions(query);
+            showSuggestions(currentSuggestions);
+        }, 120);
+
+        searchInput.addEventListener('input', handleInput);
 
         searchInput.addEventListener('keydown', (e) => {
             const items = suggestionsDropdown.querySelectorAll('.suggestion-item');
             if (e.key === 'ArrowDown') {
+                if (items.length === 0) return;
                 activeIndex = (activeIndex + 1) % items.length;
                 updateActive(items);
                 e.preventDefault();
             } else if (e.key === 'ArrowUp') {
+                if (items.length === 0) return;
                 activeIndex = (activeIndex - 1 + items.length) % items.length;
                 updateActive(items);
                 e.preventDefault();
             } else if (e.key === 'Enter') {
                 e.preventDefault();
-                if (activeIndex >= 0) {
-                    selectFaculty(filterSuggestions(searchInput.value.trim())[activeIndex].code);
+                if (activeIndex >= 0 && currentSuggestions[activeIndex]) {
+                    selectFaculty(currentSuggestions[activeIndex].code);
                 } else {
                     const query = searchInput.value.trim();
-                    const bestMatch = Object.entries(facultyData)
-                        .find(([code, f]) => f.name.toLowerCase().startsWith(query.toLowerCase()) || code.toLowerCase().startsWith(query.toLowerCase()));
-                    if (bestMatch) selectFaculty(bestMatch[0]);
-                    else resultDiv.innerHTML = '<p class="text-danger">Faculty not found.</p>';
+                    // Pick best suggestion or try a direct prefix match fallback
+                    if (currentSuggestions.length > 0) {
+                        selectFaculty(currentSuggestions[0].code);
+                    } else {
+                        const ql = query.toLowerCase();
+                        const best = facultyList.find(
+                            it => it.name.toLowerCase().startsWith(ql) || it.code.toLowerCase().startsWith(ql)
+                        );
+                        if (best) selectFaculty(best.code);
+                        else resultDiv.innerHTML = '<p class="text-danger">Faculty not found.</p>';
+                    }
                 }
             }
         });
@@ -452,12 +559,22 @@
             e.preventDefault();
             const query = searchInput.value.trim();
             if (!query) return;
-            const bestMatch = Object.entries(facultyData)
-                .find(([code, f]) => f.name.toLowerCase().startsWith(query.toLowerCase()) || code.toLowerCase().startsWith(query.toLowerCase()));
-            if (bestMatch) selectFaculty(bestMatch[0]);
-            else resultDiv.innerHTML = '<p class="text-danger">Faculty not found.</p>';
+            // Use the same ranked results as the dropdown
+            const ranked = filterSuggestions(query);
+            if (ranked.length > 0) {
+                selectFaculty(ranked[0].code);
+            } else {
+                // Fallback to prefix match if nothing in suggestions
+                const ql = query.toLowerCase();
+                const best = facultyList.find(
+                    it => it.name.toLowerCase().startsWith(ql) || it.code.toLowerCase().startsWith(ql)
+                );
+                if (best) selectFaculty(best.code);
+                else resultDiv.innerHTML = '<p class="text-danger">Faculty not found.</p>';
+            }
         });
     </script>
+
 </body>
 
 </html>
