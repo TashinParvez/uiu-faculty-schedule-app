@@ -9,20 +9,12 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
             margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
         }
 
         main {
@@ -31,7 +23,6 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            box-sizing: border-box;
             text-align: center;
         }
 
@@ -49,23 +40,20 @@
             font-size: 2rem;
             font-weight: 700;
             color: #1a3c6d;
-            /* margin-bottom: 30px; */
         }
 
         .input-group {
             position: relative;
-            z-index: 1;
         }
 
         .dropdown-menu {
             width: 100%;
             max-height: 250px;
             overflow-y: auto;
-            border-radius: 0 0 10px 10px;
             border: none;
+            border-radius: 0 0 10px 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             margin-top: 40px;
-            /* tashin */
             z-index: 1000;
         }
 
@@ -77,8 +65,6 @@
         .suggestion-item:hover,
         .suggestion-item.active {
             background-color: #cce0ff;
-            /* tashin here */
-            /* color: white; */
             cursor: pointer;
         }
 
@@ -118,12 +104,6 @@
             border-left: 4px solid #007bff;
         }
 
-        .today-section h5 {
-            color: #1a3c6d;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
         .table-responsive {
             margin-bottom: 30px;
         }
@@ -139,24 +119,21 @@
             font-size: 0.95rem;
         }
 
+        /* cell color codes */
         .cell-class {
             background-color: #d1ecf1 !important;
-            color: black;
         }
 
         .cell-cnh {
             background-color: #d4edda !important;
-            color: black;
         }
 
         .cell-oh {
             background-color: #fff3cd !important;
-            color: black;
         }
 
         .cell-free {
             background-color: white !important;
-            color: black;
         }
 
         .faculty-info {
@@ -166,6 +143,7 @@
             margin-bottom: 20px;
         }
 
+        /* Responsive tweaks */
         @media (max-width: 768px) {
             .container {
                 margin: 20px;
@@ -185,7 +163,6 @@
                 padding: 8px;
             }
 
-            /* for phones */
             footer {
                 font-size: 12px;
                 padding: 10px;
@@ -199,6 +176,7 @@
             padding: 12px;
             font-size: 14px;
             border-top: 2px solid #444;
+            border-radius: 5px 5px 0 0;
         }
 
         footer p {
@@ -209,16 +187,8 @@
             font-size: 12px;
             color: #aaa;
         }
-
-        @media (max-width: 576px) {
-
-            /* for phones */
-            footer {
-                font-size: 12px;
-                padding: 10px;
-            }
-        }
     </style>
+
 </head>
 
 <body>
@@ -272,8 +242,8 @@
         let facultyList = [];
         let activeIndex = -1;
         let currentSuggestions = [];
-        const today = new Date().toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
-
+        // const today = new Date().toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
+        const today = "SUN";
         // Utility: escape regex
         const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -547,7 +517,7 @@
 
         function updateActive(items) {
             items.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
-        } 
+        }
 
         document.addEventListener('click', (e) => {
             if (!searchInput.contains(e.target) && !suggestionsDropdown.contains(e.target)) {
