@@ -241,14 +241,15 @@
 
     <script>
         const searchInput = document.getElementById('searchInput');
-        const suggestionsDropdown = document.getElementById('suggestions'); 
+        const suggestionsDropdown = document.getElementById('suggestions');
         const resultDiv = document.getElementById('result');
         let facultyData = {};
         let facultyList = [];
         let activeIndex = -1;
         let currentSuggestions = [];
 
-        const today = "SAT";
+        const today = new Date().toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
+        // const today = "SAT";
 
         const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
