@@ -25,11 +25,10 @@ Students can easily find `faculty information`, see their **undergrad & grad rou
 
 ## 🖼️ Demo Preview
 
-<img width="1920" height="932" alt="1" src="https://github.com/user-attachments/assets/06b7774a-b4fd-4cb0-8348-04989119e17c" />
-
-<img width="1366" height="768" alt="2" src="https://github.com/user-attachments/assets/067daba7-efb6-4737-a643-a285f51e9d31" />
-
-<img width="1901" height="932" alt="3" src="https://github.com/user-attachments/assets/f299a44c-e81e-4ca4-9bca-161c5cabc519" />
+<img width="1920" height="932" alt="1" src="https://github.com/user-attachments/assets/bcd2a3f6-f7cd-4824-b164-d1a59e3359f3" />
+<img width="1304" height="734" alt="2" src="https://github.com/user-attachments/assets/b1a2b5fe-0276-42da-9a23-5892dfa1753e" />
+<img width="1734" height="867" alt="3" src="https://github.com/user-attachments/assets/a9721ac5-49e5-46f7-b44d-4923862a5ca4" />
+<img width="1880" height="925" alt="4" src="https://github.com/user-attachments/assets/74119c5e-f567-4b66-8754-71c6cc76a713" />
 
 
 ---
