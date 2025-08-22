@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -119,7 +119,6 @@
             font-size: 0.95rem;
         }
 
-        /* cell color codes */
         .cell-class {
             background-color: #d1ecf1 !important;
         }
@@ -143,7 +142,6 @@
             margin-bottom: 20px;
         }
 
-        /* Responsive tweaks */
         @media (max-width: 768px) {
             .container {
                 margin: 20px;
@@ -188,10 +186,11 @@
             color: #aaa;
         }
     </style>
-
 </head>
 
 <body>
+
+
 
     <!--================================ Main Seg ================================-->
 
@@ -201,6 +200,8 @@
             <h2 style="font-size:20px; color:#555; font-weight:normal; margin-top:10px; margin-bottom: 30px;">
                 Class, Counselling, and Office Hours of CSE Faculty Members
             </h2>
+
+            <!--============= search segment =============-->
             <form id="searchForm">
                 <div class="input-group mb-3">
                     <input type="text" id="searchInput" class="form-control" placeholder="Enter faculty name or code"
@@ -209,9 +210,13 @@
                     <div id="suggestions" class="dropdown-menu" style="display: none;"></div>
                 </div>
             </form>
+
+            <!--============= search result segment =============-->
             <div id="result"></div>
             <!-- <div id="result" style="display: none;"></div> -->
 
+            <!--============= Print/Download Button =============-->
+            <!-- <button id="downloadSchedule" class="btn btn-primary mt-2">Download Schedule PDF</button> -->
 
         </div>
     </main>
@@ -225,18 +230,15 @@
         <p>Made with ❤️ by
             <a href="https://github.com/TashinParvez" target="_blank" style="color:#2c80e1; text-decoration:none;">
                 <i class="bi bi-github"></i>
-                <u>
-                    Tashin Parvez
-                </u>
+                <u>Tashin Parvez</u>
             </a>
         </p>
-
         <p style="font-size:12px; color:#aaa;">Note: Information is based on uploaded data (Summer 2025). Please verify
-            with
-            faculty/department if necessary.</p>
+            with faculty/department if necessary.</p>
     </footer>
 
     <!--================================ Script ================================-->
+
     <script>
         const searchInput = document.getElementById('searchInput');
         const suggestionsDropdown = document.getElementById('suggestions');
@@ -246,14 +248,10 @@
         let activeIndex = -1;
         let currentSuggestions = [];
 
-        // const today = new Date().toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
         const today = "SAT";
 
-
-        // Utility: escape regex
         const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-        // Utility: basic debounce for input
         function debounce(fn, delay = 150) {
             let t;
             return (...args) => {
@@ -262,7 +260,6 @@
             };
         }
 
-        // Load faculty_data.json
         fetch('./faculty_data.json')
             .then(res => {
                 if (!res.ok) throw new Error('Failed to load faculty data');
@@ -281,32 +278,21 @@
                 resultDiv.innerHTML = '<p class="text-danger">Error loading faculty data. Please try again later.</p>';
             });
 
-        // Relevance scoring: smaller is better
         function computeRelevance(q, item) {
             const ql = q.toLowerCase();
             const name = (item.name || '').toLowerCase();
             const code = (item.code || '').toLowerCase();
 
-            if (!ql) return { cat: 99, a: 999, b: 999 }; // no query
+            if (!ql) return { cat: 99, a: 999, b: 999 };
 
-            // Tokenize name by non-letters (keeps A–Z)
             const tokens = name.split(/[^a-z]+/).filter(Boolean);
 
-            // 0) Code starts with query
             if (code.startsWith(ql)) return { cat: 0, a: 0, b: 0 };
-
-            // 1) Name starts with query (stronger than other token starts)
             if (name.startsWith(ql)) return { cat: 1, a: 0, b: 0 };
-
-            // 2) Any token starts with query (word-boundary prefix)
             const tokenStartIdx = tokens.findIndex(t => t.startsWith(ql));
             if (tokenStartIdx !== -1) return { cat: 2, a: tokenStartIdx, b: 0 };
-
-            // 3) Code contains query (substring)
             const codePos = code.indexOf(ql);
             if (codePos !== -1) return { cat: 3, a: codePos, b: 0 };
-
-            // 4) Any token contains query (substring inside a word)
             let bestTokenPos = Infinity, bestTokenIdx = Infinity;
             tokens.forEach((t, idx) => {
                 const p = t.indexOf(ql);
@@ -316,12 +302,8 @@
                 }
             });
             if (bestTokenPos !== Infinity) return { cat: 4, a: bestTokenPos, b: bestTokenIdx };
-
-            // 5) Name contains query (fallback)
             const namePos = name.indexOf(ql);
             if (namePos !== -1) return { cat: 5, a: namePos, b: 0 };
-
-            // Not matched (shouldn’t be used if we filter first)
             return { cat: 99, a: 999, b: 999 };
         }
 
@@ -329,7 +311,6 @@
             const q = query.toLowerCase().trim();
             if (!q) return [];
 
-            // Filter, score, sort
             const scored = facultyList
                 .filter(item => item.name.toLowerCase().includes(q) || item.code.toLowerCase().includes(q))
                 .map(item => ({
@@ -337,15 +318,10 @@
                     score: computeRelevance(q, item)
                 }))
                 .sort((x, y) => {
-                    // Primary: category
                     if (x.score.cat !== y.score.cat) return x.score.cat - y.score.cat;
-                    // Secondary: position a
                     if (x.score.a !== y.score.a) return x.score.a - y.score.a;
-                    // Tertiary: position b
                     if (x.score.b !== y.score.b) return x.score.b - y.score.b;
-                    // Quaternary: shorter code first (users often type codes)
                     if (x.code.length !== y.code.length) return x.code.length - y.code.length;
-                    // Finally: alphabetical by name
                     return x.name.localeCompare(y.name);
                 });
 
@@ -464,25 +440,16 @@
                     <h3 class="mb-3" style="color:#1a3c6d; font-weight:bold;">${faculty.name} (${code})</h3>
                     <p class="mb-2"><strong>Designation:</strong> ${faculty.designation || ''}</p>
                     <p class="mb-2"><strong>Room:</strong> ${faculty.room || ''}</p>
+                    <p class="mb-2"><strong> Phone:</strong> ${faculty.phone || ''} </p>
                     <p class="mb-0"><strong>Email:</strong> ${faculty.email || ''}</p>
                 </div>
                 ${todaySchedule}
-                
-                <!--================= Just color code show =================-->
-                 
-               
-
                 <div class="today-legend mb-3" style="font-size: 14px;">
                     <span class="cell-class" style="padding:4px 8px; border-radius:4px; margin-right:8px; color:#0c5460;">Class (CH)</span>
                     <span class="cell-cnh" style="padding:4px 8px; border-radius:4px; margin-right:8px; color:#155724;">Counseling Hour (CnH)</span>
                     <span class="cell-oh" style="padding:4px 8px; border-radius:4px; margin-right:8px; color:#856404;">Office Hour (OH)</span>
                     <span class="cell-free" style="padding:4px 8px; border-radius:4px; border:1px solid #ccc; color:#000;">Empty Slot</span>
                 </div>
-
-              
-
-
-
                 <h6 class="mb-3">Full Undergraduate Schedule</h6>
                 <div class="table-responsive">${undergradTable}</div>
                 <h6 class="mb-3">Full Graduate Schedule</h6>
@@ -522,7 +489,6 @@
                     selectFaculty(currentSuggestions[activeIndex].code);
                 } else {
                     const query = searchInput.value.trim();
-                    // Pick best suggestion or try a direct prefix match fallback
                     if (currentSuggestions.length > 0) {
                         selectFaculty(currentSuggestions[0].code);
                     } else {
@@ -551,12 +517,10 @@
             e.preventDefault();
             const query = searchInput.value.trim();
             if (!query) return;
-            // Use the same ranked results as the dropdown
             const ranked = filterSuggestions(query);
             if (ranked.length > 0) {
                 selectFaculty(ranked[0].code);
             } else {
-                // Fallback to prefix match if nothing in suggestions
                 const ql = query.toLowerCase();
                 const best = facultyList.find(
                     it => it.name.toLowerCase().startsWith(ql) || it.code.toLowerCase().startsWith(ql)
@@ -565,9 +529,7 @@
                 else resultDiv.innerHTML = '<p class="text-danger">Faculty not found.</p>';
             }
         });
-
     </script>
-
 </body>
 
 </html>
