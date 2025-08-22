@@ -1,5 +1,10 @@
 # 📘 UIU Faculty Schedule App
 
+![GitHub repo size](https://img.shields.io/github/repo-size/TashinParvez/uiu-faculty-schedule-app)
+![GitHub contributors](https://img.shields.io/github/contributors/TashinParvez/uiu-faculty-schedule-app)
+![GitHub last commit](https://img.shields.io/github/last-commit/TashinParvez/uiu-faculty-schedule-app)
+![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=TashinParvez.uiu-faculty-schedule-app)
+
 A modern, mobile-friendly web application to **search and view faculty schedules** at **United International University (UIU)**.
 Students can easily find `faculty information`, see their **undergrad & grad routines**, and quickly check **today’s availability/free slots** to plan visits.
 
