@@ -351,7 +351,7 @@
 
             suggestions.forEach((item, index) => {
                 const div = document.createElement('div');
-                div.className = 'dropdown-item suggestion-item';
+                div.className = 'dropdown-item suggestion-item'; 
                 const q = searchInput.value.trim();
                 const nameHtml = highlight(item.name, q);
                 const codeHtml = highlight(item.code, q);
