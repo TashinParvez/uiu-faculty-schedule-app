@@ -4,6 +4,7 @@
         "name": "Md. Tarek Hasan",
         "designation": "Lecturer",
         "room": "319",
+        "phone": "01772888601",
         "email": "tarek@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -71,6 +72,7 @@
         "name": "Abdullah Al Jobair",
         "designation": "Lecturer",
         "room": "636",
+        "phone": "01688699375",
         "email": "jobair@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -138,6 +140,7 @@
         "name": "Asif Ahmed Utsa",
         "designation": "Lecturer",
         "room": "419 (A)",
+        "phone": "01700545293",
         "email": "asif@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -205,6 +208,7 @@
         "name": "Abu Bakar Fahad",
         "designation": "Instructor",
         "room": "",
+        "phone": "01628003123",
         "email": "afahad201119@bscse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -272,6 +276,7 @@
         "name": "Md. Abid Hossain",
         "designation": "Lecturer",
         "room": "619B",
+        "phone": "01796992356",
         "email": "abid@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -339,6 +344,7 @@
         "name": "Anudwaipaon Antu",
         "designation": "Lecturer",
         "room": "719 (D)",
+        "phone": "01521520121",
         "email": "anudwaipaon@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -406,6 +412,7 @@
         "name": "Abu Humayed Azim Fahmid",
         "designation": "Lecturer",
         "room": "836 (B)",
+        "phone": "01957142863",
         "email": "humayed@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -473,6 +480,7 @@
         "name": "A.H.M. Osama Haque",
         "designation": "Lecturer",
         "room": "836(C)",
+        "phone": "01857715545",
         "email": "osama@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -540,6 +548,7 @@
         "name": "Abdullah Ibne Masud Mahi",
         "designation": "Lecturer",
         "room": "919 (B)",
+        "phone": "01842939194",
         "email": "ibnemasud@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -607,6 +616,7 @@
         "name": "A.K.M. Muzahidul Islam",
         "designation": "Professor",
         "room": "633 (E)",
+        "phone": "01754165915",
         "email": "muzahid@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -680,6 +690,7 @@
         "name": "Arnab Bhattacharjee",
         "designation": "Lecturer",
         "room": "933 (I)",
+        "phone": "01879038263",
         "email": "arnab@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -747,6 +758,7 @@
         "name": "Azizur Rahman Anik",
         "designation": "Lecturer",
         "room": "836(B)",
+        "phone": "01954843608",
         "email": "azizur@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -814,6 +826,7 @@
         "name": "Arefeen Rahman Niloy",
         "designation": "Assistant Professor 2",
         "room": "",
+        "phone": "01559504344",
         "email": "arefeenniloy@gmail.com",
         "undergrad": {
             "times": [
@@ -881,6 +894,7 @@
         "name": "Al-Sakib Khan Pathan",
         "designation": "Professor",
         "room": "733 (B)",
+        "phone": "01756084583",
         "email": "sakib@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -954,6 +968,7 @@
         "name": "Asnuva Tanvin",
         "designation": "Lecturer",
         "room": "635 (B)",
+        "phone": "01767981070",
         "email": "tanvin@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1021,6 +1036,7 @@
         "name": "Anika Tasnim Rodela",
         "designation": "Lecturer",
         "room": "636",
+        "phone": "01987985082",
         "email": "anika@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1088,6 +1104,7 @@
         "name": "Azim Uddin Chowdhury",
         "designation": "",
         "room": "537 (A)",
+        "phone": "not-found",
         "email": "azim@admin.uiu.ac.bd ",
         "undergrad": {
             "times": [
@@ -1155,6 +1172,7 @@
         "name": "Charles Aunkan Gomes",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01770347232",
         "email": "charles@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1222,6 +1240,7 @@
         "name": "Didarul Islam Didar",
         "designation": "Lecturer",
         "room": "833 (G)",
+        "phone": "01828747064",
         "email": "didarul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1289,6 +1308,7 @@
         "name": "Farhan Anan Himu",
         "designation": "Lecturer",
         "room": "536",
+        "phone": "01794397694",
         "email": "himu@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1356,6 +1376,7 @@
         "name": "Fahim Hafiz",
         "designation": "Lecturer",
         "room": "636",
+        "phone": "01708631299",
         "email": "fahimhafiz@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1423,6 +1444,7 @@
         "name": "Fahmid Al Rifat",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01774550000",
         "email": "fahmid@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1490,6 +1512,7 @@
         "name": "Faria Tabassum",
         "designation": "",
         "room": "",
+        "phone": "not-found",
         "email": "fariatabassum3@gmail.com",
         "undergrad": {
             "times": [
@@ -1557,6 +1580,7 @@
         "name": "Farhan Tanvir Khan",
         "designation": "Lecturer",
         "room": "833(G)",
+        "phone": "01727583233",
         "email": "farhantanvir@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1624,6 +1648,7 @@
         "name": "Fairoz Anika",
         "designation": "Lecturer",
         "room": "319 or 833 (H)",
+        "phone": "01733197087",
         "email": "fairoz@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1691,6 +1716,7 @@
         "name": "Humaira Anzum Neha",
         "designation": "Lecturer",
         "room": "837(B)",
+        "phone": "01720064836",
         "email": "humaira@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1758,6 +1784,7 @@
         "name": "Hamudi Hasan Sonet",
         "designation": "",
         "room": "",
+        "phone": "not-found",
         "email": "",
         "undergrad": {
             "times": [
@@ -1825,6 +1852,7 @@
         "name": "Hasan Sarwar",
         "designation": "Professor",
         "room": "418 (A)",
+        "phone": "01715050453",
         "email": "hsarwar@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1898,6 +1926,7 @@
         "name": "Iftekharul Abedeen",
         "designation": "Lecturer",
         "room": "636",
+        "phone": "01517006553",
         "email": "iftekharul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -1965,6 +1994,7 @@
         "name": "Imran Hossain",
         "designation": "Lecturer",
         "room": "833 (G)",
+        "phone": "01892555265",
         "email": "imran@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2032,6 +2062,7 @@
         "name": "Israt Jahan Khan",
         "designation": "Instructor",
         "room": "",
+        "phone": "01967376333",
         "email": "ikhan201142@bscse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2099,6 +2130,7 @@
         "name": "Md. Irfanur Rahman Rafio",
         "designation": "Lecturer",
         "room": "319",
+        "phone": "01552443807",
         "email": "irfanur@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2166,6 +2198,7 @@
         "name": "Jannatun Noor Mukta",
         "designation": "Associate Professor",
         "room": "412",
+        "phone": "01911058877",
         "email": "jannatun@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2239,6 +2272,7 @@
         "name": "Kazi Abdun Noor",
         "designation": "Lecturer",
         "room": "336 (A)",
+        "phone": "01867384434",
         "email": "abdunnoor@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2306,6 +2340,7 @@
         "name": "Khushnur Binte Jahangir",
         "designation": "Lecturer",
         "room": "336 (C)",
+        "phone": "01688185250",
         "email": "khushnur@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2373,6 +2408,7 @@
         "name": "Khondaker Abdullah -Al-Mamun",
         "designation": "Professor",
         "room": "1012 (B)",
+        "phone": "01776534220",
         "email": "mamun@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2446,6 +2482,7 @@
         "name": "K M Faizullah Fuhad",
         "designation": "Assistant Professor 2",
         "room": "",
+        "phone": "01749406545",
         "email": "faizullahfuhad@gmail.com",
         "undergrad": {
             "times": [
@@ -2513,6 +2550,7 @@
         "name": "Khandokar Md. Rahat Hossain",
         "designation": "Lecturer",
         "room": "837 (A)",
+        "phone": "01552420536",
         "email": "rahat@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2580,6 +2618,7 @@
         "name": "K Shayekh Ebne Mizan",
         "designation": "Assistant Professor 2",
         "room": "",
+        "phone": "01717807462",
         "email": "shayekh.iit.ju.44@gmail.com",
         "undergrad": {
             "times": [
@@ -2647,6 +2686,7 @@
         "name": "Mahmudul Hasan",
         "designation": "Lecturer",
         "room": "836 (A)",
+        "phone": "01914259744",
         "email": "mahmudul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2714,6 +2754,7 @@
         "name": "Muhammad Anwarul Azim",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01967091405",
         "email": "anwarul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2781,6 +2822,7 @@
         "name": "Md. Benzir Ahmed",
         "designation": "Assistant Professor 2",
         "room": "535 (A)",
+        "phone": "01983792928",
         "email": "benzir@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2848,6 +2890,7 @@
         "name": "Mohammad Johirul Islam",
         "designation": "Assistant Professor 1",
         "room": "",
+        "phone": "01972626172",
         "email": "johir123@gmail.com",
         "undergrad": {
             "times": [
@@ -2915,6 +2958,7 @@
         "name": "Md. Muhyminul Haque",
         "designation": "Lecturer",
         "room": "419 (D)",
+        "phone": "01789926815",
         "email": "muhyminul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -2982,6 +3026,7 @@
         "name": "Md. Motaharul Islam",
         "designation": "Professor",
         "room": "833D",
+        "phone": "01712644837",
         "email": "motaharul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3060,6 +3105,7 @@
         "name": "Md. Romizul Islam",
         "designation": "Lecturer",
         "room": "419 (A)",
+        "phone": "01798238205",
         "email": "romizul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3127,6 +3173,7 @@
         "name": "Md. Delwar Shahadat Deepu",
         "designation": "Instructor",
         "room": "",
+        "phone": "01938934819",
         "email": "mdeepu202037@bscse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3194,6 +3241,7 @@
         "name": "Md. Shadman Aadeeb",
         "designation": "Lecturer",
         "room": "636",
+        "phone": "01712299121",
         "email": "shadman@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3261,6 +3309,7 @@
         "name": "Mohammad Mamun Elahi",
         "designation": "Assistant Professor",
         "room": "518",
+        "phone": "01914001570",
         "email": "mmelahi@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3334,6 +3383,7 @@
         "name": "Md. Mehedi Hasan",
         "designation": "Instructor",
         "room": "",
+        "phone": "01623090826",
         "email": "mhasan201292@bscse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3401,6 +3451,7 @@
         "name": "Md. Enamul Haque",
         "designation": "Instructor",
         "room": "",
+        "phone": "01643878029",
         "email": "mhaque182055@bscse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3468,6 +3519,7 @@
         "name": "M. Fahmin Rahman",
         "designation": "Lecturer",
         "room": "837 (C)",
+        "phone": "01704557290",
         "email": "fahmin@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3535,6 +3587,7 @@
         "name": "Md. Mushfiqul Haque Omi",
         "designation": "Lecturer",
         "room": "837(A)",
+        "phone": "01759203694",
         "email": "mushfiqul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3602,6 +3655,7 @@
         "name": "Minhajul Bashir",
         "designation": "Lecturer",
         "room": "319",
+        "phone": "01912736131",
         "email": "minhajul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3669,6 +3723,7 @@
         "name": "Mohammed Jawwadul Islam",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01833183766",
         "email": "jawwad.fida@gmail.com",
         "undergrad": {
             "times": [
@@ -3736,6 +3791,7 @@
         "name": "Md Mainul Islam",
         "designation": "Assistant Professor 2",
         "room": "310 A",
+        "phone": "01681172388",
         "email": "mainulfuad95@gmail.com",
         "undergrad": {
             "times": [
@@ -3803,6 +3859,7 @@
         "name": "Mir Moynuddin Ahmed Shibly",
         "designation": "Assistant Professor",
         "room": "337A",
+        "phone": "01521205754",
         "email": "moynuddin@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3870,6 +3927,7 @@
         "name": "Md. Muhaiminul Islam Nafi",
         "designation": "Lecturer",
         "room": "635 (C)",
+        "phone": "01704953445",
         "email": "muhaiminul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -3937,6 +3995,7 @@
         "name": "Mohammad Nurul Huda",
         "designation": "Professor",
         "room": "433 (A)",
+        "phone": "01673476433",
         "email": "mnh@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4010,6 +4069,7 @@
         "name": "Muhammad Nomani Kabir",
         "designation": "Professor",
         "room": "412 (D)",
+        "phone": "01902800275",
         "email": "kabir@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4077,6 +4137,7 @@
         "name": "Md. Nafis Tahmid Akhand",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01615341752",
         "email": "tahmid@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4144,6 +4205,7 @@
         "name": "Mohammad Ali",
         "designation": "",
         "room": "",
+        "phone": "not-found",
         "email": "ali@admin.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4211,6 +4273,7 @@
         "name": "Md. Mohaiminul Islam",
         "designation": "Lecturer",
         "room": "636",
+        "phone": "01843707534",
         "email": "mohaiminul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4278,6 +4341,7 @@
         "name": "Mobaswirul Islam",
         "designation": "Lecturer",
         "room": "336 (D)",
+        "phone": "01886313963",
         "email": "mobaswirul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4345,6 +4409,7 @@
         "name": "Md. Shohrab Hossain",
         "designation": "",
         "room": "",
+        "phone": "not-found",
         "email": "shohrab@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4412,6 +4477,7 @@
         "name": "Md. Salman Shamil",
         "designation": "Lecturer",
         "room": "719 (A)",
+        "phone": "01965644074",
         "email": "salman@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4479,6 +4545,7 @@
         "name": "Md. Shafqat Talukder",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01926749123",
         "email": "shafqat@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4546,6 +4613,7 @@
         "name": "Md. Tanvir Raihan",
         "designation": "Lecturer",
         "room": "419 (C)",
+        "phone": "01643171903",
         "email": "tanvir@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4613,6 +4681,7 @@
         "name": "Nahid Hossain",
         "designation": "Assistant Professor",
         "room": "433 (F)",
+        "phone": "01754257670",
         "email": "nahid@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4680,6 +4749,7 @@
         "name": "Noman Asif Aditya",
         "designation": "Lecturer",
         "room": "836(C)",
+        "phone": "01727606702",
         "email": "aditya@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4747,6 +4817,7 @@
         "name": "Novia Nurain",
         "designation": "",
         "room": "",
+        "phone": "not-found",
         "email": "novia@cse.uiu.ac.bd ",
         "undergrad": {
             "times": [
@@ -4814,6 +4885,7 @@
         "name": "Nabila Sabrin Sworna",
         "designation": "Lecturer",
         "room": "419 (B)",
+        "phone": "01911644209",
         "email": "nabila@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4881,6 +4953,7 @@
         "name": "Nusrat Jahan Tithi",
         "designation": "Lecturer",
         "room": "636",
+        "phone": "01521200375",
         "email": "nusrat@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -4948,6 +5021,7 @@
         "name": "Nabila Tasfiha Rahman",
         "designation": "Lecturer",
         "room": "836 (D)",
+        "phone": "01794896813",
         "email": "tasfiha@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5015,6 +5089,7 @@
         "name": "Nusaiba Zaman Manifa",
         "designation": "Lecturer",
         "room": "833H",
+        "phone": "01622545050",
         "email": "manifa@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5082,6 +5157,7 @@
         "name": "Ohidujjaman",
         "designation": "Assistant Professor 1",
         "room": "335 (C)",
+        "phone": "01798083444",
         "email": "ohidujjaman@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5155,6 +5231,7 @@
         "name": "Pranta Biswas",
         "designation": "Lecturer",
         "room": "636 (A)",
+        "phone": "01879903188",
         "email": "pranta@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5222,6 +5299,7 @@
         "name": "Rakibul Hasan Rafi",
         "designation": "Lecturer",
         "room": "635 (C)",
+        "phone": "01737659967",
         "email": "rakibulhasan@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5289,6 +5367,7 @@
         "name": "Rahad Khan",
         "designation": "Lecturer",
         "room": "719A",
+        "phone": "01634319377",
         "email": "rahad@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5356,6 +5435,7 @@
         "name": "Rakib Ahsan",
         "designation": "Lecturer",
         "room": "635 (C)",
+        "phone": "01744956510",
         "email": "rakib@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5423,6 +5503,7 @@
         "name": "Rabeya Hossain",
         "designation": "Lecturer",
         "room": "836(D)",
+        "phone": "01975566338",
         "email": "rabeya@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5490,6 +5571,7 @@
         "name": "Rizvan Jawad Ruhan",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01830618640",
         "email": "rizvan@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5557,6 +5639,7 @@
         "name": "Redwanul Mahbub Talukder",
         "designation": "Lecturer",
         "room": "837 (C)",
+        "phone": "01315380033",
         "email": "redwanul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5624,6 +5707,7 @@
         "name": "Rafid Nahiyan Farabi",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01857369988",
         "email": "rafid@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5691,6 +5775,7 @@
         "name": "Rubaiya Rahtin Khan",
         "designation": "Assistant Professor 2",
         "room": "435(C)",
+        "phone": "01720425583",
         "email": "rubaiya@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5764,6 +5849,7 @@
         "name": "Riasat Azim",
         "designation": "Assistant Professor 1",
         "room": "337(1-3) A",
+        "phone": "01796619200",
         "email": "riasat@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5837,6 +5923,7 @@
         "name": "Suman Ahmmed",
         "designation": "Associate Professor",
         "room": "412 (A)",
+        "phone": "01765049901",
         "email": "suman@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5904,6 +5991,7 @@
         "name": "Sabah Ahmed",
         "designation": "Lecturer",
         "room": "635 (C)",
+        "phone": "01777884247",
         "email": "sabah@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -5971,6 +6059,7 @@
         "name": "Shoib Ahmed Shourav",
         "designation": "Lecturer",
         "room": "536(B)",
+        "phone": "01675490353",
         "email": "shoib@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6038,6 +6127,7 @@
         "name": "Sadia Islam",
         "designation": "Assistant Professor 2",
         "room": "318(B)",
+        "phone": "01688744226",
         "email": "sadia@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6111,6 +6201,7 @@
         "name": "Saifullah Mahbub",
         "designation": "Assistant Professor 2",
         "room": "",
+        "phone": "01610966631",
         "email": "saifornab@gmail.com",
         "undergrad": {
             "times": [
@@ -6178,6 +6269,7 @@
         "name": "Sajid Ahmed Chowdhury",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01760514780",
         "email": "sajidahmed@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6245,6 +6337,7 @@
         "name": "Shihab Ahmed",
         "designation": "Lecturer",
         "room": "319 (A)",
+        "phone": "01682233149",
         "email": "shihab@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6312,6 +6405,7 @@
         "name": "Sherajul Arifin",
         "designation": "Lecturer",
         "room": "319 (C)",
+        "phone": "01747504514",
         "email": "sherajul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6379,6 +6473,7 @@
         "name": "Shahriar Mahmud",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01886360871",
         "email": "shahriarmahmud@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6446,6 +6541,7 @@
         "name": "Sahid Hossain Mustakim",
         "designation": "Instructor",
         "room": "",
+        "phone": "01409096307",
         "email": "smustakim201274@bscse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6513,6 +6609,7 @@
         "name": "Shahariar Sarkar",
         "designation": "Instructor",
         "room": "",
+        "phone": "01624943334",
         "email": "ssarkar201237@bscse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6580,6 +6677,7 @@
         "name": "Sidratul Muntaha",
         "designation": "Lecturer",
         "room": "635 (B)",
+        "phone": "01742256703",
         "email": "sidratul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6647,6 +6745,7 @@
         "name": "Shekh. Md. Saifur Rahman",
         "designation": "Lecturer",
         "room": "636 (A)",
+        "phone": "01303529289",
         "email": "saifur@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6714,6 +6813,7 @@
         "name": "Sk. Md. Tauseef Tajwar",
         "designation": "Lecturer",
         "room": "319 (D)",
+        "phone": "01728569161",
         "email": "tauseef@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6781,6 +6881,7 @@
         "name": "Sabber Ahmed",
         "designation": "Assistant Professor 2",
         "room": "",
+        "phone": "01840779562",
         "email": "sabber999@gmail.com",
         "undergrad": {
             "times": [
@@ -6848,6 +6949,7 @@
         "name": "Samin Sharaf Somik",
         "designation": "Lecturer",
         "room": "419 (D)",
+        "phone": "01580117550",
         "email": "samin@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6915,6 +7017,7 @@
         "name": "Sidratul Tanzila Tasmi",
         "designation": "Lecturer",
         "room": "319 (D)",
+        "phone": "01735944394",
         "email": "tanzila@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -6982,6 +7085,7 @@
         "name": "Shahil Yasar Haque",
         "designation": "Instructor",
         "room": "",
+        "phone": "01921988863",
         "email": "shaque201021@bscse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -7049,6 +7153,7 @@
         "name": "Md. Tamzid Hossain",
         "designation": "Lecturer",
         "room": "419 (C)",
+        "phone": "01540150469",
         "email": "tamzid@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -7116,6 +7221,7 @@
         "name": "Tahmid Mosaddeque",
         "designation": "Lecturer",
         "room": "719 (D)",
+        "phone": "01632037012",
         "email": "mosaddeque@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -7183,6 +7289,7 @@
         "name": "Tasmin Sanjida",
         "designation": "Lecturer",
         "room": "419 (B)",
+        "phone": "01627998299",
         "email": "sanjida@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -7250,6 +7357,7 @@
         "name": "Tanmoy Bipro Das",
         "designation": "Lecturer",
         "room": "837 (D)",
+        "phone": "01680332098",
         "email": "tanmoy@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -7317,6 +7425,7 @@
         "name": "Tasmia Binte Sogir",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01911510859",
         "email": "tasmia@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -7384,6 +7493,7 @@
         "name": "Tonmoy Saha",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01701014614",
         "email": "tonmoysaha179@gmail.com",
         "undergrad": {
             "times": [
@@ -7451,6 +7561,7 @@
         "name": "Tahsin Wahid",
         "designation": "Lecturer",
         "room": "",
+        "phone": "01677464719",
         "email": "tahsin@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -7518,6 +7629,7 @@
         "name": "Taki Yashir",
         "designation": "Lecturer",
         "room": "336 (D)",
+        "phone": "01521555488",
         "email": "taki@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -7585,6 +7697,7 @@
         "name": "Umama Rahman",
         "designation": "Lecturer",
         "room": "635 (B)",
+        "phone": "01799358591",
         "email": "umama@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
@@ -7652,6 +7765,7 @@
         "name": "Mohammad Abu Sayem",
         "designation": "Assistant Professor 1",
         "room": "",
+        "phone": "01712175054",
         "email": "",
         "undergrad": {
             "times": [
@@ -7719,6 +7833,7 @@
         "name": "Md. Mokit Hossain",
         "designation": "Assistant Professor 2",
         "room": "",
+        "phone": "01627666912",
         "email": "",
         "undergrad": {
             "times": [
@@ -7786,6 +7901,7 @@
         "name": "Md Rafiur Rahman",
         "designation": "Assistant Professor 2",
         "room": "",
+        "phone": "01677818813",
         "email": "",
         "undergrad": {
             "times": [
@@ -7853,6 +7969,7 @@
         "name": "Sajjad Ahmed",
         "designation": "Assistant Professor 2",
         "room": "",
+        "phone": "01833182805",
         "email": "",
         "undergrad": {
             "times": [
