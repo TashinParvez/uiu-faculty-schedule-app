@@ -1,0 +1,98 @@
+<div class="faculty-info">
+    <h3 class="mb-3" style="color:#1a3c6d; font-weight:bold;">John Doe (CSE101)</h3>
+    <p class="mb-2"><strong>Designation:</strong> Professor</p>
+    <p class="mb-2"><strong>Room:</strong> 402</p>
+
+    <!-- Phone -->
+    <p class="mb-2 copy-container">
+        <strong>Phone:</strong>
+        <span class="copy-text">01712345678</span>
+        <button class="copy-btn" aria-label="Copy Phone">
+            <img src="https://www.clipartmax.com/png/middle/219-2198518_download-png-file-512-x-copy-clipboard-icon-svg.png"
+                alt="Copy Icon" width="18" height="18">
+        </button>
+        <span class="tooltip">Copied!</span>
+    </p>
+
+    <!-- Email -->
+    <p class="mb-0 copy-container">
+        <strong>Email:</strong>
+        <span class="copy-text">john.doe@uiu.ac.bd</span>
+        <button class="copy-btn" aria-label="Copy Email">
+            <img src="https://www.clipartmax.com/png/middle/219-2198518_download-png-file-512-x-copy-clipboard-icon-svg.png"
+                alt="Copy Icon" width="18" height="18">
+        </button>
+        <span class="tooltip">Copied!</span>
+    </p>
+</div>
+
+<style>
+    .copy-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .copy-text {
+        user-select: text;
+    }
+
+    .copy-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        transition: transform 0.2s ease;
+    }
+
+    .copy-btn:active {
+        transform: scale(1.2);
+    }
+
+    .tooltip {
+        display: none;
+        position: absolute;
+        top: -24px;
+        left: 60px;
+        background: #1a3c6d;
+        color: #fff;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .copy-container.copied .tooltip {
+        display: inline-block;
+        opacity: 1;
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.copy-container').forEach(container => {
+        const textElement = container.querySelector('.copy-text');
+        const copyBtn = container.querySelector('.copy-btn');
+
+        function copyText() {
+            const textToCopy = textElement.textContent.trim();
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                container.classList.add("copied");
+                setTimeout(() => container.classList.remove("copied"), 1500);
+            });
+        }
+
+        // Desktop & Mobile: click on button
+        copyBtn.addEventListener('click', copyText);
+
+        // Mobile: long press on text
+        let pressTimer;
+        textElement.addEventListener("touchstart", () => {
+            pressTimer = setTimeout(copyText, 600);
+        });
+        textElement.addEventListener("touchend", () => clearTimeout(pressTimer));
+    });
+</script>
