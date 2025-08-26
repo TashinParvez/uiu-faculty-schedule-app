@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UIU Faculty Schedule Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a3c6d;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            width: 100%;
+            max-height: 250px;
+            overflow-y: auto;
+            border: none;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-top: 40px;
+            z-index: 1000;
+        }
+
+        .suggestion-item {
+            padding: 12px 15px;
+            transition: background 0.2s ease;
+        }
+
+        .suggestion-item:hover,
+        .suggestion-item.active {
+            background-color: #cce0ff;
+            cursor: pointer;
+        }
+
+        .input-group input:focus {
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            border-color: #007bff;
+        }
+
+        .btn-primary {
+            background-color: #1a3c6d;
+            border-color: #1a3c6d;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #005cbf;
+            border-color: #005cbf;
+        }
+
+        #result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 10px;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #007bff;
+        }
+
+        .today-section {
+            background: #e6f0fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #007bff;
+        }
+
+        .table-responsive {
+            margin-bottom: 30px;
+        }
+
+        .table th {
+            background-color: #1a3c6d;
+            color: white;
+            font-weight: 600;
+        }
+
+        .table td {
+            vertical-align: middle;
+            font-size: 0.95rem;
+        }
+
+        .cell-class {
+            background-color: #d1ecf1 !important;
+        }
+
+        .cell-cnh {
+            background-color: #d4edda !important;
+        }
+
+        .cell-oh {
+            background-color: #fff3cd !important;
+        }
+
+        .cell-free {
+            background-color: white !important;
+        }
+
+        .faculty-info {
+            background: #f1f3f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .table {
+                font-size: 0.85rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 8px;
+            }
+
+            footer {
+                font-size: 12px;
+                padding: 10px;
+            }
+        }
+
+        footer {
+            background: #222;
+            color: #ddd;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            border-top: 2px solid #444;
+            border-radius: 5px 5px 0 0;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer small {
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--================================ Main Seg ================================-->
+
+    <main>
+        <div class="container">
+            <h1>UIU Faculty Schedule Search</h1>
+            <h2 style="font-size:20px; color:#555; font-weight:normal; margin-top:10px; margin-bottom: 30px;">
+                Class, Counselling, and Office Hours of CSE Faculty Members
+            </h2>
+
+            <!--============= search segment =============-->
+            <form id="searchForm">
+                <div class="input-group mb-3">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Enter faculty name or code"
+                        autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <div id="suggestions" class="dropdown-menu" style="display: none;"></div>
+                </div>
+            </form>
+
+            <!--============= search result segment =============-->
+            <div id="result"></div>
+            <!-- <div id="result" style="display: none;"></div> -->
+
+            <!--============= Print/Download Button =============-->
+            <!-- <button id="downloadSchedule" class="btn btn-primary mt-2">Download Schedule PDF</button> -->
+
+        </div>
+    </main>
+
+
+    <!--================================ footer ================================-->
+
+    <footer
+        style="margin-top:30px; padding:15px; background:#222; color:#ddd; text-align:center; font-size:14px; border-radius:5px 5px 0 0;">
+        <p>UIU Faculty Schedule App - Built for UIU Students</p>
+        <p>Made with ❤️ by
+            <a href="https://github.com/TashinParvez" target="_blank" style="color:#2c80e1; text-decoration:none;">
+                <i class="bi bi-github"></i>
+                <u>Tashin Parvez</u>
+            </a>
+        </p>
+        <p style="font-size:12px; color:#aaa;">Note: Information is based on uploaded data (Summer 2025). Please verify
+            with faculty/department if necessary.</p>
+    </footer>
+
+    <!--================================ Script ================================-->
+
+    <!-- <script>
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsDropdown = document.getElementById('suggestions');
+        const resultDiv = document.getElementById('result');
+        let facultyData = {};
+        let facultyList = [];
+        let activeIndex = -1;
+        let currentSuggestions = [];
+
+        const today = new Date().toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
+        // const today = "SAT";
+
+        const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        function debounce(fn, delay = 150) {
+            let t;
+            return (...args) => {
+                clearTimeout(t);
+                t = setTimeout(() => fn(...args), delay);
+            };
+        }
+
+        fetch('./faculty_data.json')
+            .then(res => {
+                if (!res.ok) throw new Error('Failed to load faculty data');
+                return res.json();
+            })
+            .then(data => {
+                facultyData = data || {};
+                facultyList = Object.entries(facultyData).map(([code, f]) => ({
+                    code,
+                    name: f.name || '',
+                    ref: f
+                }));
+            })
+            .catch(err => {
+                console.error('Error loading JSON:', err);
+                resultDiv.innerHTML = '<p class="text-danger">Error loading faculty data. Please try again later.</p>';
+            });
+
+        function computeRelevance(q, item) {
+            const ql = q.toLowerCase();
+            const name = (item.name || '').toLowerCase();
+            const code = (item.code || '').toLowerCase();
+
+            if (!ql) return { cat: 99, a: 999, b: 999 };
+
+            const tokens = name.split(/[^a-z]+/).filter(Boolean);
+
+            if (code.startsWith(ql)) return { cat: 0, a: 0, b: 0 };
+            if (name.startsWith(ql)) return { cat: 1, a: 0, b: 0 };
+            const tokenStartIdx = tokens.findIndex(t => t.startsWith(ql));
+            if (tokenStartIdx !== -1) return { cat: 2, a: tokenStartIdx, b: 0 };
+            const codePos = code.indexOf(ql);
+            if (codePos !== -1) return { cat: 3, a: codePos, b: 0 };
+            let bestTokenPos = Infinity, bestTokenIdx = Infinity;
+            tokens.forEach((t, idx) => {
+                const p = t.indexOf(ql);
+                if (p !== -1 && (p < bestTokenPos || (p === bestTokenPos && idx < bestTokenIdx))) {
+                    bestTokenPos = p;
+                    bestTokenIdx = idx;
+                }
+            });
+            if (bestTokenPos !== Infinity) return { cat: 4, a: bestTokenPos, b: bestTokenIdx };
+            const namePos = name.indexOf(ql);
+            if (namePos !== -1) return { cat: 5, a: namePos, b: 0 };
+            return { cat: 99, a: 999, b: 999 };
+        }
+
+        function filterSuggestions(query) {
+            const q = query.toLowerCase().trim();
+            if (!q) return [];
+
+            const scored = facultyList
+                .filter(item => item.name.toLowerCase().includes(q) || item.code.toLowerCase().includes(q))
+                .map(item => ({
+                    ...item,
+                    score: computeRelevance(q, item)
+                }))
+                .sort((x, y) => {
+                    if (x.score.cat !== y.score.cat) return x.score.cat - y.score.cat;
+                    if (x.score.a !== y.score.a) return x.score.a - y.score.a;
+                    if (x.score.b !== y.score.b) return x.score.b - y.score.b;
+                    if (x.code.length !== y.code.length) return x.code.length - y.code.length;
+                    return x.name.localeCompare(y.name);
+                });
+
+            return scored.slice(0, 8).map(({ name, code }) => ({ name, code }));
+        }
+
+        function highlight(text, query) {
+            if (!query) return text;
+            const re = new RegExp(`(${escapeRegExp(query)})`, 'ig');
+            return text.replace(re, '<span class="highlight">$1</span>');
+        }
+
+        function showSuggestions(suggestions) {
+            suggestionsDropdown.innerHTML = '';
+            if (suggestions.length === 0) {
+                suggestionsDropdown.style.display = 'none';
+                return;
+            }
+
+            suggestions.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'dropdown-item suggestion-item';
+                const q = searchInput.value.trim();
+                const nameHtml = highlight(item.name, q);
+                const codeHtml = highlight(item.code, q);
+                div.innerHTML = `${nameHtml} (${codeHtml})`;
+                div.addEventListener('click', () => selectFaculty(item.code));
+                suggestionsDropdown.appendChild(div);
+            });
+            suggestionsDropdown.style.display = 'block';
+        }
+
+        function selectFaculty(code) {
+            const faculty = facultyData[code];
+            if (!faculty) return;
+            searchInput.value = faculty.name;
+            suggestionsDropdown.style.display = 'none';
+            showResult(faculty, code);
+        }
+
+        function getCellClass(value) {
+            if (!value || value.trim() === '') return 'cell-free';
+            if (value.includes('CnH')) return 'cell-cnh';
+            if (value === 'OH') return 'cell-oh';
+            return 'cell-class';
+        }
+
+        function buildTable(schedule, times, isUndergrad = true) {
+            if (!schedule || Object.keys(schedule).length === 0 || !Array.isArray(times)) {
+                return `<p class="text-muted">No ${isUndergrad ? 'undergraduate' : 'graduate'} schedule available.</p>`;
+            }
+
+            const days = Object.keys(schedule).sort((a, b) => {
+                const dayOrder = ['SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI'];
+                return dayOrder.indexOf(a) - dayOrder.indexOf(b);
+            });
+
+            let table = '<table class="table table-bordered table-hover"><thead><tr><th>Day</th>';
+            times.forEach(t => table += `<th>${t}</th>`);
+            table += '</tr></thead><tbody>';
+
+            days.forEach(day => {
+                const highlightRow = day === today ? 'class="table-warning"' : '';
+                table += `<tr ${highlightRow}><td>${day}</td>`;
+                const row = schedule[day] || [];
+                times.forEach((_, i) => {
+                    const value = row[i] || '';
+                    const cellClass = getCellClass(value);
+                    table += `<td class="${cellClass}">${value || 'Free'}</td>`;
+                });
+                table += '</tr>';
+            });
+
+            table += '</tbody></table>';
+            return table;
+        }
+
+        function buildTodaySchedule(faculty) {
+            let todayHtml = '<div class="today-section"><h4 style="color:#1a3c6d">Today\'s Schedule (' + today + ')</h4>';
+
+            if (faculty.undergrad && faculty.undergrad.schedule && faculty.undergrad.schedule[today]) {
+                todayHtml += '<h6>Undergraduate</h6><ul class="list-group mb-3">';
+                (faculty.undergrad.times || []).forEach((time, i) => {
+                    const activity = faculty.undergrad.schedule[today][i] || 'Free';
+                    const cellClass = getCellClass(activity);
+                    todayHtml += `<li class="list-group-item ${cellClass}">${time}: ${activity}</li>`;
+                });
+                todayHtml += '</ul>';
+            } else {
+                todayHtml += '<p class="text-muted">No undergraduate schedule for today.</p>';
+            }
+
+            if (faculty.grad && faculty.grad.schedule && faculty.grad.schedule[today]) {
+                todayHtml += '<h6>Graduate</h6><ul class="list-group mb-3">';
+                (faculty.grad.times || []).forEach((time, i) => {
+                    const activity = faculty.grad.schedule[today][i] || 'Free';
+                    const cellClass = getCellClass(activity);
+                    todayHtml += `<li class="list-group-item ${cellClass}">${time}: ${activity}</li>`;
+                });
+                todayHtml += '</ul>';
+            } else {
+                todayHtml += '<p class="text-muted">No graduate schedule for today.</p>';
+            }
+
+            todayHtml += '</div>';
+            return todayHtml;
+        }
+
+        function showResult(faculty, code) {
+            const undergradTable = buildTable(faculty.undergrad?.schedule, faculty.undergrad?.times, true);
+            const gradTable = buildTable(faculty.grad?.schedule, faculty.grad?.times, false);
+            const todaySchedule = buildTodaySchedule(faculty);
+
+            resultDiv.innerHTML = `
+                <div class="faculty-info">
+                    <h3 class="mb-3" style="color:#1a3c6d; font-weight:bold;">${faculty.name} (${code})</h3>
+                    <p class="mb-2"><strong>Designation:</strong> ${faculty.designation || ''}</p>
+                    <p class="mb-2"><strong>Room:</strong> ${faculty.room || ''}</p>
+                    <p class="mb-2"><strong> Phone:</strong> ${faculty.phone || ''} </p>
+                    <p class="mb-0"><strong>Email:</strong> ${faculty.email || ''}</p>
+                </div>
+                ${todaySchedule}
+                <div class="today-legend mb-3" style="font-size: 14px;">
+                    <span class="cell-class" style="padding:4px 8px; border-radius:4px; margin-right:8px; color:#0c5460;">Class (CH)</span>
+                    <span class="cell-cnh" style="padding:4px 8px; border-radius:4px; margin-right:8px; color:#155724;">Counseling Hour (CnH)</span>
+                    <span class="cell-oh" style="padding:4px 8px; border-radius:4px; margin-right:8px; color:#856404;">Office Hour (OH)</span>
+                    <span class="cell-free" style="padding:4px 8px; border-radius:4px; border:1px solid #ccc; color:#000;">Empty Slot</span>
+                </div>
+                <h6 class="mb-3">Full Undergraduate Schedule</h6>
+                <div class="table-responsive">${undergradTable}</div>
+                <h6 class="mb-3">Full Graduate Schedule</h6>
+                <div class="table-responsive">${gradTable}</div>
+            `;
+        }
+
+        const handleInput = debounce(() => {
+            activeIndex = -1;
+            const query = searchInput.value.trim();
+            if (!query) {
+                suggestionsDropdown.style.display = 'none';
+                currentSuggestions = [];
+                return;
+            }
+            currentSuggestions = filterSuggestions(query);
+            showSuggestions(currentSuggestions);
+        }, 120);
+
+        searchInput.addEventListener('input', handleInput);
+
+        searchInput.addEventListener('keydown', (e) => {
+            const items = suggestionsDropdown.querySelectorAll('.suggestion-item');
+            if (e.key === 'ArrowDown') {
+                if (items.length === 0) return;
+                activeIndex = (activeIndex + 1) % items.length;
+                updateActive(items);
+                e.preventDefault();
+            } else if (e.key === 'ArrowUp') {
+                if (items.length === 0) return;
+                activeIndex = (activeIndex - 1 + items.length) % items.length;
+                updateActive(items);
+                e.preventDefault();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (activeIndex >= 0 && currentSuggestions[activeIndex]) {
+                    selectFaculty(currentSuggestions[activeIndex].code);
+                } else {
+                    const query = searchInput.value.trim();
+                    if (currentSuggestions.length > 0) {
+                        selectFaculty(currentSuggestions[0].code);
+                    } else {
+                        const ql = query.toLowerCase();
+                        const best = facultyList.find(
+                            it => it.name.toLowerCase().startsWith(ql) || it.code.toLowerCase().startsWith(ql)
+                        );
+                        if (best) selectFaculty(best.code);
+                        else resultDiv.innerHTML = '<p class="text-danger">Faculty not found.</p>';
+                    }
+                }
+            }
+        });
+
+        function updateActive(items) {
+            items.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !suggestionsDropdown.contains(e.target)) {
+                suggestionsDropdown.style.display = 'none';
+            }
+        });
+
+        document.getElementById('searchForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (!query) return;
+            const ranked = filterSuggestions(query);
+            if (ranked.length > 0) {
+                selectFaculty(ranked[0].code);
+            } else {
+                const ql = query.toLowerCase();
+                const best = facultyList.find(
+                    it => it.name.toLowerCase().startsWith(ql) || it.code.toLowerCase().startsWith(ql)
+                );
+                if (best) selectFaculty(best.code);
+                else resultDiv.innerHTML = '<p class="text-danger">Faculty not found.</p>';
+            }
+        });
+    </script> -->
+
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsDropdown = document.getElementById('suggestions');
+        const resultDiv = document.getElementById('result');
+        let facultyData = {};
+        let facultyList = [];
+        let labCodes = new Set();
+        let activeIndex = -1;
+        let currentSuggestions = [];
+
+        const today = new Date().toLocaleString('en-US', { weekday: 'short' }).toUpperCase();
+        // const today = "SAT";
+
+        const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        function debounce(fn, delay = 150) {
+            let t;
+            return (...args) => {
+                clearTimeout(t);
+                t = setTimeout(() => fn(...args), delay);
+            };
+        }
+
+        Promise.all([
+            fetch('./faculty_data.json').then(res => {
+                if (!res.ok) throw new Error('Failed to load faculty data');
+                return res.json();
+            }),
+            fetch('./uiu-labs.json').then(res => {
+                if (!res.ok) throw new Error('Failed to load UIU lab data');
+                return res.json();
+            })
+        ])
+            .then(([facultyJson, labJson]) => {
+                facultyData = facultyJson || {};
+                facultyList = Object.entries(facultyData).map(([code, f]) => ({
+                    code,
+                    name: f.name || '',
+                    ref: f
+                }));
+
+                const allLabs = (labJson.labs || []).concat(labJson.fydp || []);
+                labCodes = new Set(allLabs.map(item => item.code));
+            })
+            .catch(err => {
+                console.error('Error loading JSON:', err);
+                resultDiv.innerHTML = '<p class="text-danger">Error loading data. Please try again later.</p>';
+            });
+
+        function computeRelevance(q, item) {
+            const ql = q.toLowerCase();
+            const name = (item.name || '').toLowerCase();
+            const code = (item.code || '').toLowerCase();
+
+            if (!ql) return { cat: 99, a: 999, b: 999 };
+
+            const tokens = name.split(/[^a-z]+/).filter(Boolean);
+
+            if (code.startsWith(ql)) return { cat: 0, a: 0, b: 0 };
+            if (name.startsWith(ql)) return { cat: 1, a: 0, b: 0 };
+            const tokenStartIdx = tokens.findIndex(t => t.startsWith(ql));
+            if (tokenStartIdx !== -1) return { cat: 2, a: tokenStartIdx, b: 0 };
+            const codePos = code.indexOf(ql);
+            if (codePos !== -1) return { cat: 3, a: codePos, b: 0 };
+            let bestTokenPos = Infinity, bestTokenIdx = Infinity;
+            tokens.forEach((t, idx) => {
+                const p = t.indexOf(ql);
+                if (p !== -1 && (p < bestTokenPos || (p === bestTokenPos && idx < bestTokenIdx))) {
+                    bestTokenPos = p;
+                    bestTokenIdx = idx;
+                }
+            });
+            if (bestTokenPos !== Infinity) return { cat: 4, a: bestTokenPos, b: bestTokenIdx };
+            const namePos = name.indexOf(ql);
+            if (namePos !== -1) return { cat: 5, a: namePos, b: 0 };
+            return { cat: 99, a: 999, b: 999 };
+        }
+
+        function filterSuggestions(query) {
+            const q = query.toLowerCase().trim();
+            if (!q) return [];
+
+            const scored = facultyList
+                .filter(item => item.name.toLowerCase().includes(q) || item.code.toLowerCase().includes(q))
+                .map(item => ({
+                    ...item,
+                    score: computeRelevance(q, item)
+                }))
+                .sort((x, y) => {
+                    if (x.score.cat !== y.score.cat) return x.score.cat - y.score.cat;
+                    if (x.score.a !== y.score.a) return x.score.a - y.score.a;
+                    if (x.score.b !== y.score.b) return x.score.b - y.score.b;
+                    if (x.code.length !== y.code.length) return x.code.length - y.code.length;
+                    return x.name.localeCompare(y.name);
+                });
+
+            return scored.slice(0, 8).map(({ name, code }) => ({ name, code }));
+        }
+
+        function highlight(text, query) {
+            if (!query) return text;
+            const re = new RegExp(`(${escapeRegExp(query)})`, 'ig');
+            return text.replace(re, '<span class="highlight">$1</span>');
+        }
+
+        function showSuggestions(suggestions) {
+            suggestionsDropdown.innerHTML = '';
+            if (suggestions.length === 0) {
+                suggestionsDropdown.style.display = 'none';
+                return;
+            }
+
+            suggestions.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'dropdown-item suggestion-item';
+                const q = searchInput.value.trim();
+                const nameHtml = highlight(item.name, q);
+                const codeHtml = highlight(item.code, q);
+                div.innerHTML = `${nameHtml} (${codeHtml})`;
+                div.addEventListener('click', () => selectFaculty(item.code));
+                suggestionsDropdown.appendChild(div);
+            });
+            suggestionsDropdown.style.display = 'block';
+        }
+
+        function selectFaculty(code) {
+            const faculty = facultyData[code];
+            if (!faculty) return;
+            searchInput.value = faculty.name;
+            suggestionsDropdown.style.display = 'none';
+            showResult(faculty, code);
+        }
+
+        function getCellClass(value) {
+            if (!value || value.trim() === '') return 'cell-free';
+            if (value.includes('CnH')) return 'cell-cnh';
+            if (value === 'OH') return 'cell-oh';
+            return 'cell-class';
+        }
+
+        function isLabCourse(value) {
+            if (!value || value.trim() === '') return false;
+            const courseCode = value.split(/\s*\(/)[0].trim();
+            return labCodes.has(courseCode);
+        }
+
+        function buildTable(schedule, times, isUndergrad = true) {
+            if (!schedule || Object.keys(schedule).length === 0 || !Array.isArray(times)) {
+                return `<p class="text-muted">No ${isUndergrad ? 'undergraduate' : 'graduate'} schedule available.</p>`;
+            }
+
+            const days = Object.keys(schedule).sort((a, b) => {
+                const dayOrder = ['SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI'];
+                return dayOrder.indexOf(a) - dayOrder.indexOf(b);
+            });
+
+            let table = '<table class="table table-bordered table-hover"><thead><tr><th>Day</th>';
+            times.forEach(t => table += `<th>${t}</th>`);
+            table += '</tr></thead><tbody>';
+
+            days.forEach(day => {
+                const highlightRow = day === today ? 'class="table-warning"' : '';
+                table += `<tr ${highlightRow}><td>${day}</td>`;
+                const row = schedule[day] || [];
+                let i = 0;
+                while (i < times.length) {
+                    const value = row[i] || '';
+                    const cellClass = getCellClass(value);
+                    if (value && isLabCourse(value) && i + 1 < times.length && (row[i + 1] || '') === '') {
+                        table += `<td colspan="2" class="${cellClass}">${value}</td>`;
+                        i += 2;
+                    } else {
+                        table += `<td class="${cellClass}">${value || 'Free'}</td>`;
+                        i++;
+                    }
+                }
+                table += '</tr>';
+            });
+
+            table += '</tbody></table>';
+            return table;
+        }
+
+        function buildTodaySchedule(faculty) {
+            let todayHtml = '<div class="today-section"><h4 style="color:#1a3c6d">Today\'s Schedule (' + today + ')</h4>';
+
+            if (faculty.undergrad && faculty.undergrad.schedule && faculty.undergrad.schedule[today]) {
+                todayHtml += '<h6>Undergraduate</h6><ul class="list-group mb-3">';
+                const times = faculty.undergrad.times || [];
+                const row = faculty.undergrad.schedule[today];
+                let i = 0;
+                while (i < times.length) {
+                    const time = times[i];
+                    const activity = row[i] || 'Free';
+                    const cellClass = getCellClass(activity);
+                    if (activity !== 'Free' && isLabCourse(activity) && i + 1 < times.length && (row[i + 1] || '') === '') {
+                        const start = times[i].split(' - ')[0];
+                        const end = times[i + 1].split(' - ')[1];
+                        const combinedTime = `${start} - ${end}`;
+                        todayHtml += `<li class="list-group-item ${cellClass}">${combinedTime}: ${activity}</li>`;
+                        i += 2;
+                    } else {
+                        todayHtml += `<li class="list-group-item ${cellClass}">${time}: ${activity}</li>`;
+                        i++;
+                    }
+                }
+                todayHtml += '</ul>';
+            } else {
+                todayHtml += '<p class="text-muted">No undergraduate schedule for today.</p>';
+            }
+
+            if (faculty.grad && faculty.grad.schedule && faculty.grad.schedule[today]) {
+                todayHtml += '<h6>Graduate</h6><ul class="list-group mb-3">';
+                const times = faculty.grad.times || [];
+                const row = faculty.grad.schedule[today];
+                let i = 0;
+                while (i < times.length) {
+                    const time = times[i];
+                    const activity = row[i] || 'Free';
+                    const cellClass = getCellClass(activity);
+                    if (activity !== 'Free' && isLabCourse(activity) && i + 1 < times.length && (row[i + 1] || '') === '') {
+                        const start = times[i].split(' - ')[0];
+                        const end = times[i + 1].split(' - ')[1];
+                        const combinedTime = `${start} - ${end}`;
+                        todayHtml += `<li class="list-group-item ${cellClass}">${combinedTime}: ${activity}</li>`;
+                        i += 2;
+                    } else {
+                        todayHtml += `<li class="list-group-item ${cellClass}">${time}: ${activity}</li>`;
+                        i++;
+                    }
+                }
+                todayHtml += '</ul>';
+            } else {
+                todayHtml += '<p class="text-muted">No graduate schedule for today.</p>';
+            }
+
+            todayHtml += '</div>';
+            return todayHtml;
+        }
+
+        function showResult(faculty, code) {
+            const undergradTable = buildTable(faculty.undergrad?.schedule, faculty.undergrad?.times, true);
+            const gradTable = buildTable(faculty.grad?.schedule, faculty.grad?.times, false);
+            const todaySchedule = buildTodaySchedule(faculty);
+
+            resultDiv.innerHTML = `
+                <div class="faculty-info">
+                    <h3 class="mb-3" style="color:#1a3c6d; font-weight:bold;">${faculty.name} (${code})</h3>
+                    <p class="mb-2"><strong>Designation:</strong> ${faculty.designation || ''}</p>
+                    <p class="mb-2"><strong>Room:</strong> ${faculty.room || ''}</p>
+                    <p class="mb-2"><strong> Phone:</strong> ${faculty.phone || ''} </p>
+                    <p class="mb-0"><strong>Email:</strong> ${faculty.email || ''}</p>
+                </div>
+                ${todaySchedule}
+                <div class="today-legend mb-3" style="font-size: 14px;">
+                    <span class="cell-class" style="padding:4px 8px; border-radius:4px; margin-right:8px; color:#0c5460;">Class (CH)</span>
+                    <span class="cell-cnh" style="padding:4px 8px; border-radius:4px; margin-right:8px; color:#155724;">Counseling Hour (CnH)</span>
+                    <span class="cell-oh" style="padding:4px 8px; border-radius:4px; margin-right:8px; color:#856404;">Office Hour (OH)</span>
+                    <span class="cell-free" style="padding:4px 8px; border-radius:4px; border:1px solid #ccc; color:#000;">Empty Slot</span>
+                </div>
+                <h6 class="mb-3">Full Undergraduate Schedule</h6>
+                <div class="table-responsive">${undergradTable}</div>
+                <h6 class="mb-3">Full Graduate Schedule</h6>
+                <div class="table-responsive">${gradTable}</div>
+            `;
+        }
+
+        const handleInput = debounce(() => {
+            activeIndex = -1;
+            const query = searchInput.value.trim();
+            if (!query) {
+                suggestionsDropdown.style.display = 'none';
+                currentSuggestions = [];
+                return;
+            }
+            currentSuggestions = filterSuggestions(query);
+            showSuggestions(currentSuggestions);
+        }, 120);
+
+        searchInput.addEventListener('input', handleInput);
+
+        searchInput.addEventListener('keydown', (e) => {
+            const items = suggestionsDropdown.querySelectorAll('.suggestion-item');
+            if (e.key === 'ArrowDown') {
+                if (items.length === 0) return;
+                activeIndex = (activeIndex + 1) % items.length;
+                updateActive(items);
+                e.preventDefault();
+            } else if (e.key === 'ArrowUp') {
+                if (items.length === 0) return;
+                activeIndex = (activeIndex - 1 + items.length) % items.length;
+                updateActive(items);
+                e.preventDefault();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (activeIndex >= 0 && currentSuggestions[activeIndex]) {
+                    selectFaculty(currentSuggestions[activeIndex].code);
+                } else {
+                    const query = searchInput.value.trim();
+                    if (currentSuggestions.length > 0) {
+                        selectFaculty(currentSuggestions[0].code);
+                    } else {
+                        const ql = query.toLowerCase();
+                        const best = facultyList.find(
+                            it => it.name.toLowerCase().startsWith(ql) || it.code.toLowerCase().startsWith(ql)
+                        );
+                        if (best) selectFaculty(best.code);
+                        else resultDiv.innerHTML = '<p class="text-danger">Faculty not found.</p>';
+                    }
+                }
+            }
+        });
+
+        function updateActive(items) {
+            items.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !suggestionsDropdown.contains(e.target)) {
+                suggestionsDropdown.style.display = 'none';
+            }
+        });
+
+        document.getElementById('searchForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (!query) return;
+            const ranked = filterSuggestions(query);
+            if (ranked.length > 0) {
+                selectFaculty(ranked[0].code);
+            } else {
+                const ql = query.toLowerCase();
+                const best = facultyList.find(
+                    it => it.name.toLowerCase().startsWith(ql) || it.code.toLowerCase().startsWith(ql)
+                );
+                if (best) selectFaculty(best.code);
+                else resultDiv.innerHTML = '<p class="text-danger">Faculty not found.</p>';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
