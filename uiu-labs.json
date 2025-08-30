@@ -1,0 +1,91 @@
+{
+    "labs": [
+        {
+            "code": "PHY 2106",
+            "name": "Physics Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "EEE 2124",
+            "name": "Electronics Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 1112",
+            "name": "Structured Programming Language Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 1116",
+            "name": "Object Oriented Programming Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 2118",
+            "name": "Advanced Object Oriented Programming Lab",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 1326",
+            "name": "Digital Logic Design Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 4326",
+            "name": "Microprocessors and Microcontrollers Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 2216",
+            "name": "Data Structure and Algorithms I Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 2218",
+            "name": "Data Structure and Algorithms II Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 3412",
+            "name": "System Analysis and Design Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 3422",
+            "name": "Software Engineering Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 3522",
+            "name": "Database Management Systems Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 4510",
+            "name": "Operating Systems Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 3712",
+            "name": "Computer Networks Laboratory",
+            "credits": 1.0
+        },
+        {
+            "code": "CSE 3812",
+            "name": "Artificial Intelligence Laboratory",
+            "credits": 1.0
+        }
+    ],
+    "fydp": [
+        {
+            "code": "CSE 4000A",
+            "name": "Final Year Design Project – I",
+            "credits": 2.0
+        },
+        {
+            "code": "CSE 4000B",
+            "name": "Final Year Design Project – II",
+            "credits": 4.0
+        }
+    ]
+}
