@@ -4345,7 +4345,7 @@
         "email": "mobaswirul@cse.uiu.ac.bd",
         "undergrad": {
             "times": [
-                "08:31 AM - 09:50 AM",
+                "08:30 AM - 09:50 AM",
                 "09:51 AM - 11:10 AM",
                 "11:11 AM - 12:30 PM",
                 "12:31 PM - 01:50 PM",
@@ -4354,19 +4354,19 @@
             ],
             "schedule": {
                 "SAT": [
-                    "CSE 3313 (K): 322",
-                    "CnH",
-                    "CSE 4495 (B): 405",
                     "CnH",
                     "CnH",
-                    "CnH"
+                    "CnH",
+                    "STQA - B - 428",
+                    "OS LAB - C - 626",
+                    "OS LAB - C - 626"
                 ],
                 "SUN": [
-                    "CSE 3522 (BB): 530",
-                    "",
-                    "CSE 4495 (A): 330",
                     "CnH",
-                    "CSE 1105 (B): 728",
+                    "DBMS - I - 401",
+                    "CnH",
+                    "STQA - A - 402",
+                    "CA - A - 723",
                     "CnH"
                 ],
                 "MON": [
@@ -4378,19 +4378,19 @@
                     "OH"
                 ],
                 "TUE": [
-                    "CSE 3313 (K): 322",
+                    "OS LAB - F - 826",
+                    "OS LAB - F - 826",
                     "CnH",
-                    "CSE 4495 (B): 405",
-                    "CnH",
+                    "STQA - B - 428",
                     "CnH",
                     "CnH"
                 ],
                 "WED": [
-                    "CSE 3522 (H): 528",
-                    "",
-                    "CSE 4495 (A): 330",
                     "CnH",
-                    "CSE 1105 (B): 728",
+                    "DBMS - I - 401",
+                    "CnH",
+                    "STQA - A - 402",
+                    "CA - A - 723",
                     "CnH"
                 ]
             }
